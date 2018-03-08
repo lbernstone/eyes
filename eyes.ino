@@ -61,7 +61,7 @@ void eyes() {
     char next = imagefile.read();
     if (next == CR) {
       if (xbm.indexOf("#define") == 0) {
-        if (xbm.indexOf("width")>0) {
+        if (xbm.indexOf("_width ")>0) {
           xbm.remove(0,xbm.lastIndexOf(" "));
           imageWidth = xbm.toInt();
           if (imageWidth > OLED_WIDTH) {
@@ -69,7 +69,7 @@ void eyes() {
             return;
           }
         } 
-        if (xbm.indexOf("height")>0) {
+        if (xbm.indexOf("_height ")>0) {
           xbm.remove(0,xbm.lastIndexOf(" "));
           imageHeight=xbm.toInt();
           if (imageHeight > OLED_HEIGHT) {
@@ -84,7 +84,7 @@ void eyes() {
       xbm = "";
     } else {xbm += next;}
   }
-  imageBits[pos++] = (int) strtol(xbm.c_str(), NULL, 16);
+  imageBits[pos++] = (int) strtol(xbm.c_str(), NULL, 16); //turn the string into a character
   imageBits[pos]=0;
   u8g2.drawXBM((OLED_WIDTH-imageWidth)/2, (OLED_HEIGHT-imageHeight)/2, imageWidth, imageHeight, imageBits);
   u8g2.nextPage();
